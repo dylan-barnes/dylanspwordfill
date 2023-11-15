@@ -4,5 +4,10 @@ chrome.runtime.onMessage.addListener(
     function(message){
         document.activeElement.value = message
         navigator.clipboard.writeText(message);
+        try{
+            document.querySelector('#portalPasswordConfirm').value = message
+        }catch(err) {
+            console.log("not sassboss")
+          }
     }
   )
