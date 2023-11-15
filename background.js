@@ -63,7 +63,7 @@ function GenSassPass(type){
     "Adventure", "Discovery", "Exploration", "Journey", "Expedition", "Quest", "Voyage", "Odyssey", "Enterprise", "Trek",
     "Hero", "Villain", "Sidekick", "Protagonist", "Antagonist", "Superhero", "Vigilante", "Adventurer", "Champion", "Guardian"
     ];
-      
+    
       
     const specialSymbols = ["@", "#", "$", "%", "&", "!"]; // Additional array of special symbols
 
@@ -98,7 +98,7 @@ function GenSassPass(type){
       
 }
 
-function openburst(index, message){
+let openburst = function(index, message){
   let url = 'https://burst.transmitsms.com/overview'
   chrome.tabs.create({index,url},function(tab){
     let tabId = tab.id;
@@ -106,6 +106,12 @@ function openburst(index, message){
       if (info.status === 'complete' && tabId === tab.id) {
           chrome.tabs.onUpdated.removeListener(listener);
           chrome.tabs.sendMessage(tabId,message);
+          chrome.scripting.executeScript({
+            target: { tabId: tabId },
+            function: () => {
+              var d=document,b='burst.transmitsms.com';if(!d.getElementById('bSMS')){for(var x=0;x<2;x++){var s=d.getElementsByTagName('head')[0].appendChild(d.createElement('script'));s.type='text/javascript';if(!x){var v='var aK=\'9e0262cddc1f7ab4fbad8462e9ed2bae\',aS=\'Rfs2fEc2SEGR4YTa\',aI=\'9e7c4f49a00dc386abbee5d50e84a179\'';try{s.text=v;}catch(e){s.textContent=v;}}else{s.src=d.location.protocol+'//'+b+'/burstSMS.js?r=1789&amp;id=41114';}}}else{bSMS.show()};
+            }
+          });
       }
     }
     )
@@ -121,8 +127,8 @@ chrome.contextMenus.onClicked.addListener(function(info,tab) {
         message = GenSassPass("sboss");
         chrome.tabs.sendMessage(tabId,message);
         console.log('sent message')
-        openburst(index,message)
-
+        
+        
         }
     
     else if(info.menuItemId=="GenUserPass"){
