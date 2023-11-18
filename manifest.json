@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Efex Password Gen Extension",
+    "name": "Password Gen Extension",
     "description" : "sassboss and user password generator https://github.com/dylan-barnes/efexpwordfill",
     "version": "1.0",
     "host_permissions": [
@@ -22,6 +22,14 @@
       ],
     "background": {
       "service_worker": "background.js"
+    },
+    "action": {
+      "default_icon": {
+        "128": "efex.png"
+      },
+      "default_title": "Pword Generator",
+      "default_popup": "popup.html"
     }
+
   }
   
